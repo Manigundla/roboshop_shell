@@ -26,7 +26,7 @@ else
     echo -e "$G you are a root user $N"
 fi 
 
-cp /c/devops/daws76/repos/shell-scripting/roboshop_shell_scripting/mongo.service /etc/yum.repos.d/mongo.repo &>> $Log_file
+cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $Log_file
 Validate $? "coping mongodb repo"
 
 dnf install mongodb-org -y &>> $Log_file
