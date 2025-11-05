@@ -55,7 +55,7 @@ cd /app
 npm install &>> $Log_file
 Validate $? "downloading dependices"  
 
-cp C/devops/daws76/repos/shell-scripting/roboshop_shell_scripting/catalogue.repo /etc/systemd/system/catalogue.service &>> $Log_file
+cp /home/centos/roboshop_shell/catalogue.repo /etc/systemd/system/catalogue.service &>> $Log_file
 
 
 systemctl daemon-reload &>> $Log_file
