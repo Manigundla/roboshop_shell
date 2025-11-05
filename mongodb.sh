@@ -7,7 +7,7 @@ Y="\e[33m"
 N="\e[0m"
 
 Timestamp=$(date +%F-%H-%M-%S)
-Log_file="/tmp/$0-$Timestamp.log
+Log_file="/tmp/$0-$Timestamp.log"
 
 Validate(){
     if [ $1 -ne 0 ]
