@@ -18,7 +18,7 @@ Validate(){
 }
 
 
-if [ $ID -ne 0 ]
+if [ $Id -ne 0 ]
 then 
     echo -e "$R you shoould be root user to run this command $N"
 else 
