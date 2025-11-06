@@ -9,7 +9,7 @@ N="\e[0m"
 Timestamp=$(date +%F-%H-%M-%S)
 Log_file="/tmp/$0-$Timestamp.log"
  
-Validation(){
+Validate(){
     if [ $1 -ne 0 ]
     then 
         echo -e "$R $2 is failed $N"
