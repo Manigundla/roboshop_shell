@@ -37,13 +37,13 @@ Validate $? "enabling nodejs"
 dnf install nodejs -y &>> $Log_file
 Validate $? "installing nodejs" 
 
-id roboshop #the if statement helps to validate the username
-    if [ $id -ne 0 ]
+id roboshop &>> $Log_file
+    if [ $? -ne 0 ] #the if statement helps to validate the username 
     then
         useradd roboshop &>> $Log_file
         Validate $? "added user"
     else 
-        echo "user already exit $Y skipping $N"
+        echo -e "user already exit $Y skipping $N"
     fi
 
 
