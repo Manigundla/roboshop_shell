@@ -37,7 +37,7 @@ Validate $? "enabling nodejs"
 dnf install nodejs -y &>> $Log_file
 Validate $? "installing nodejs" 
 
-id roboshop &>> $Log_file
+id roboshop &>> $Log_file #in this scripts we can use 'set -e', but in case of this cmd.its doesn't work because the user is not created before running this script for the first time then its is a error and scritp will exit.
     if [ $? -ne 0 ] #the if statement helps to validate the username 
     then
         useradd roboshop &>> $Log_file
@@ -50,7 +50,7 @@ id roboshop &>> $Log_file
 mkdir -p /app &>> $Log_file #the -p option means "create parent directories as needed."
 Validate $? "created app directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $Log_file
+curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $Log_file #-o saves the file as file.zip automatically.
 Validate $? "downloading applicatino"
 
 cd /app &>> $Log_file

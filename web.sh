@@ -49,7 +49,7 @@ Validate $? "downloading code"
 cd /usr/share/nginx/html &>> $Log_file
 Validate $? "changing directory"
 
-unzip /tmp/web.zip &>> $Log_file
+unzip -o /tmp/web.zip &>> $Log_file #-o is overiding
 Validate $? "unzipping code"
 
 cp /home/centos/roboshop_shell/web.repo /etc/nginx/default.d/roboshop.conf &>> $Log_file
