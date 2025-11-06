@@ -43,7 +43,7 @@ systemctl start rabbitmq-server &>> $Log_file
 Validate $? "Starting server"
 
 rabbitmqctl add_user roboshop roboshop123 &>> $Log_file
-validate $? "Addign user"
+Validate $? "Addign user"
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $Log_file
 Validate $? "setting up permission"
