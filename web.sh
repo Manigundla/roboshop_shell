@@ -5,8 +5,10 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
-Timestamp=$(date +%D-%H-%M-%S)
+
+Timestamp=$(date +%F-%H-%M-%S)
 Log_file="/tmp/$0-$Timestamp.Log"
+
 
 Validate(){
     if [ $1 -ne 0 ]
