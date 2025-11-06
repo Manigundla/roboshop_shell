@@ -14,6 +14,7 @@ Validate(){
     if [ $1 -ne 0 ]
     then    
         echo -e "$R $2 failed $N"
+        exit 1
     else
         echo -e "$G $2 successful $N"
     fi
@@ -23,6 +24,7 @@ Validate(){
 if [ $Id -ne 0 ]
 then 
     echo -e "$R you shoould be root user to run this command $N"
+    exit 1
 else 
     echo -e "$G you are a root user $N"
 fi

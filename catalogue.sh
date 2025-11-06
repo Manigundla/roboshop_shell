@@ -23,6 +23,7 @@ Validate(){
 if [ $ID -ne 0 ]
 then 
     echo -e "$R you need to run this command as a root user $N"
+    exit 1
 else 
     echo -e "$G you are a root user $N"
 fi
@@ -36,10 +37,17 @@ Validate $? "enabling nodejs"
 dnf install nodejs -y &>> $Log_file
 Validate $? "installing nodejs" 
 
-useradd roboshop &>> $Log_file
-Validate $? "added user"
+id roboshop #the if statement helps to validate the username
+    if [ $id -ne 0 ]
+    then
+        useradd roboshop &>> $Log_file
+        Validate $? "added user"
+    else 
+        echo "user already exit $Y skipping $N"
+    fi
 
-mkdir /app &>> $Log_file
+
+mkdir -p /app &>> $Log_file #the -p option means "create parent directories as needed."
 Validate $? "created app directory"
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $Log_file
@@ -47,7 +55,7 @@ Validate $? "downloading applicatino"
 
 cd /app &>> $Log_file
 
-unzip /tmp/catalogue.zip &>> $Log_file
+unzip -o /tmp/catalogue.zip &>> $Log_file #-o is overiding
 Validate $? "unzipping catalouge"
 
 cd /app
