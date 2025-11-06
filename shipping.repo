@@ -4,7 +4,7 @@ Description=Shipping Service
 [Service]
 User=roboshop
 // highlight-start
-Environment=CART_ENDPOINT=<CART-SERVER-IPADDRESS>:8080
+Environment=CART_ENDPOINT=cart.chainverse.online:8080
 Environment=DB_HOST=<MYSQL-SERVER-IPADDRESS>
 // highlight-end
 ExecStart=/bin/java -jar /app/shipping.jar
