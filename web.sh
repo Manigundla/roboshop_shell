@@ -5,8 +5,8 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
-Time_stamp=$(date +%D-%H-%M-%S)
-Log_file="/tmp/$0-$Time_stamp.Log"
+Timestamp=$(date +%D-%H-%M-%S)
+Log_file="/tmp/$0-$Timestamp.Log"
 
 Validate(){
     if [ $1 -ne 0 ]
@@ -30,7 +30,7 @@ Validate $? "installing nginx"
 
 systemctl enable nginx &>> $Log_file
 Validate $? "enabining nginx"
-
+ 
 
 systemctl start nginx &>> $Log_file
 Validate $? "starting nginx"
