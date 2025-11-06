@@ -67,7 +67,10 @@ Validate $? "Enabling catalouge"
 systemctl start catalogue &>> $Log_file
 Validate $? "starting catalouge"
 
-dnf install mongodb-org-shell -y &>> $Log_file
+cp /home/centos/roboshop_shell/mongo.repo /etc/yum.repos.d/mongo.repo &>> $Log_file
+validate $? "coping mongodb client repo"
+
+dnf install mongodb-org-shell -y &>> $Log_file 
 Validate $? "Installing Mongodb client"
 
 mongo --host mongodb.chainverse.online </app/schema/catalogue.js &>> $Log_file
