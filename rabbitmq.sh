@@ -37,13 +37,13 @@ dnf install rabbitmq-server -y &>> $Log_file
 Validate $? "Installing server"
 
 systemctl enable rabbitmq-server &>> $Log_file
-Validation $? "Enabling server"
+Validate $? "Enabling server"
 
 systemctl start rabbitmq-server &>> $Log_file
-Validation $? "Starting server"
+Validate $? "Starting server"
 
 rabbitmqctl add_user roboshop roboshop123 &>> $Log_file
-validation $? "Addign user"
+validate $? "Addign user"
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $Log_file
-Validation $? "setting up permission"
+Validate $? "setting up permission"
