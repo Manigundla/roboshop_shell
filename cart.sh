@@ -9,7 +9,7 @@ N="\e[0m"
 
 Timestamp=$(date +%F-%H-%M-%S)
 Log_file="/tmp/$0-$Timestamp.log"
-exec >> $Log_file 2>&1
+
 
 Validate(){
     if [ $1 -ne 0 ]
@@ -29,16 +29,16 @@ else
     echo -e "$G you are a root user $N"
 fi
 
-dnf module disable nodejs -y
+dnf module disable nodejs -y &>> $Log_file
 Validate $? "Disabling Nodejs"
 
-dnf module enable nodejs:18 -y
+dnf module enable nodejs:18 -y &>> $Log_file
 Validate $? "Enabling nodejs"
 
-dnf install nodejs -y
+dnf install nodejs -y &>> $Log_file
 Validate $? "Installing Nodejs"
 
-id roboshop 
+id roboshop &>> $Log_file
 if [ $? -ne 0 ]
 then 
     useradd roboshop
@@ -46,26 +46,26 @@ else
     echo -e "$Y user already exit skipping $N"
 fi
 
-mkdir -p /app
+mkdir -p /app &>> $Log_file
 Validate $? "Creating directory"
 
-curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip
+curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $Log_file
 Validate $? "Downloading cart app" 
 
-unzip -o /tmp/cart.zip
+unzip -o /tmp/cart.zip &>> $Log_file
 Validate $? "Unzipping cart"
 
-npm install 
+npm install &>> $Log_file
 Validate $? "Downloading dependencies"
 
-cp /home/centos/roboshop_shell/cart.repo /etc/systemd/system/cart.service
+cp /home/centos/roboshop_shell/cart.repo /etc/systemd/system/cart.service &>> $Log_file
 Validate $? "copied cart conf"
 
-systemctl daemon-reload
+systemctl daemon-reload &>> $Log_file
 Validate $? "Reloading daemon"
 
-systemctl enable cart 
+systemctl enable cart &>> $Log_file
 Validate $? "Enabling cart"
 
-systemctl start cart
+systemctl start cart &>> $Log_file
 Validate $? "Staeting cart"
