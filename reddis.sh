@@ -37,7 +37,7 @@ Validate $? "Installing remirepo"
 dnf install redis -y &>> $Log_file
 Validate $? "Installing remirepo"
 
-sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf &>> $Log_file
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf &>> $Log_file
 Validate $? "editing remote acces"
 
 systemctl enable redis &>> $Log_file

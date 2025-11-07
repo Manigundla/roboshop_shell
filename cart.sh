@@ -68,4 +68,4 @@ systemctl enable cart &>> $Log_file
 Validate $? "Enabling cart"
 
 systemctl start cart &>> $Log_file
-Validate $? "Staeting cart"
+Validate $? "Starting cart"
