@@ -52,6 +52,8 @@ Validate $? "Creating directory"
 curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $Log_file
 Validate $? "Downloading cart app" 
 
+cd /app
+
 unzip -o /tmp/cart.zip &>> $Log_file
 Validate $? "Unzipping cart"
 
