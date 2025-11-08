@@ -72,7 +72,7 @@ Validate $? "Enabling user"
 systemctl start user &>> $Log_file
 Validate $? "Starting user"
 
-cp  home/centos/roboshop_shell/mongodb.repo /etc/yum.repos.d/mongo.repo
+cp  home/centos/roboshop_shell/mongo.repo /etc/yum.repos.d/mongo.repo
 
 dnf install mongodb-org-shell -y &>> $Log_file
 Validate $? "Installing mongodb clinet"
