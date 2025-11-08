@@ -38,7 +38,7 @@ Validate $? "Enabling nodejs"
 dnf install nodejs -y &>> $Log_file
 Validate $? "Installing nodejs"
 
-id roboshop 
+id roboshop &>> $Log_file
 if [ $? -ne 0 ]
 then 
     useradd roboshop
@@ -54,6 +54,7 @@ curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>> $
 Validate $? "Downloading user application"
 
 cd /app 
+
 unzip -o /tmp/user.zip &>> $Log_file
 Validate $? "Unzipping code"
 
@@ -72,7 +73,7 @@ Validate $? "Enabling user"
 systemctl start user &>> $Log_file
 Validate $? "Starting user"
 
-cp  home/centos/roboshop_shell/mongo.repo /etc/yum.repos.d/mongo.repo
+cp  /home/centos/roboshop_shell/mongo.repo /etc/yum.repos.d/mongo.repo
 
 dnf install mongodb-org-shell -y &>> $Log_file
 Validate $? "Installing mongodb clinet"
