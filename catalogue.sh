@@ -58,7 +58,6 @@ cd /app &>> $Log_file
 unzip -o /tmp/catalogue.zip &>> $Log_file #-o is overiding
 Validate $? "unzipping catalouge"
 
-cd /app
 
 npm install &>> $Log_file
 Validate $? "downloading dependices"  
