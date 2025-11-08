@@ -36,12 +36,13 @@ dnf module enable nodejs:18 -y &>> $Log_file
 Validate $? "Enabling nodejs"
 
 dnf install nodejs -y &>> $Log_file
-validate $? "Installing nodejs"
+Validate $? "Installing nodejs"
 
 id roboshop 
 if [ $? -ne 0 ]
 then 
     useradd roboshop
+    Validate $? "roboshop user created"
 else
     echo -e "$Y user already exit skipping $N"
 fi
