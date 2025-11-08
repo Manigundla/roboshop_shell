@@ -9,7 +9,7 @@ N="\e[0m"
 
 Timestamp=$(date +%F-%H-%M-%S)
 Log_file="/tmp/$0-$Timestamp.log"
-exec >> $Log_file 2>&1
+
 
 Validate(){
     if [ $1 -ne 0 ]
@@ -29,7 +29,7 @@ else
     echo -e "$G you are a root user $N"
 fi
 
-dnf install python36 gcc python3-devel -y
+dnf install python36 gcc python3-devel -y &>> $Log_file
 Validate $? "Installing python"
 
 id roboshop &>> $Log_file #in this scripts we can use 'set -e', but in case of this cmd.its doesn't work because the user is not created before running this script for the first time then its is a error and scritp will exit.
@@ -41,28 +41,28 @@ id roboshop &>> $Log_file #in this scripts we can use 'set -e', but in case of t
         echo -e "user already exit $Y skipping $N"
     fi
 
-mkdir -p /app 
+mkdir -p /app &>> $Log_file
 Validate $? "Creating directory"
 
-curl -L -o /tmp/payment.zip https://roboshop-builds.s3.amazonaws.com/payment.zip
+curl -L -o /tmp/payment.zip https://roboshop-builds.s3.amazonaws.com/payment.zip &>> $Log_file
 Validate $? "Downloading code"
 
-cd /app 
+cd /app &>> $Log_file
 
-unzip -o /tmp/payment.zip
+unzip -o /tmp/payment.zip &>> $Log_file
 Validate $? "Unzipping code"
 
-pip3.6 install -r requirements.txt
+pip3.6 install -r requirements.txt &>> $Log_file
 Validate $? "Installing dependencies"
 
-cp /home/centos/roboshop_shell/payment.repo /etc/systemd/system/payment.service
+cp /home/centos/roboshop_shell/payment.repo /etc/systemd/system/payment.service &>> $Log_file
 Validate $? "copied conf"
 
-systemctl daemon-reload
+systemctl daemon-reload &>> $Log_file
 Validate $? "Relaoding daemon"
 
-systemctl enable payment 
+systemctl enable payment &>> $Log_file
 Validate $? "Enabling Payment"
 
-systemctl start payment
+systemctl start payment &>> $Log_file
 Validate $? "Starting payment"

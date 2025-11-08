@@ -9,7 +9,7 @@ N="\e[0m"
 
 Timestamp=$(date +%F-%H-%M-%S)
 Log_file="/tmp/$0-$Timestamp.log"
-exec >> $Log_file 2>&1
+
 
 Validate(){
     if [ $1 -ne 0 ]
@@ -29,53 +29,52 @@ else
     echo -e "$G you are a root user $N"
 fi
 
-dnf install maven -y
+dnf install maven -y &>> $Log_file
 Validate $? " Installing maven"
 
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $Log_file
 Validate $? "adding user"
 
-mkdir -p /app 
+mkdir -p /app &>> $Log_file
 Validate $? "Creating directory"
 
-curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip 
+curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>> $Log_file
 Validate $? "Downloading code"
 
-cd /app 
+cd /app &>> $Log_file
 
-
-unzip -o /tmp/shipping.zip
+unzip -o /tmp/shipping.zip &>> $Log_file
 Validate $? "Unzipping shipping"
 
-mvn clean package
+mvn clean package &>> $Log_file
 Validate $? "downloading dependencies"
 
-mv target/shipping-1.0.jar shipping.jar 
+mv target/shipping-1.0.jar shipping.jar &>> $Log_file
 Validate $? "Renaming jar file"
 
-cp /home/centos/roboshop_shell/shipping.repo /etc/systemd/system/shipping.service
+cp /home/centos/roboshop_shell/shipping.repo /etc/systemd/system/shipping.service &>> $Log_file
 Validate $? "coping shipping conf"
 
-systemctl daemon-reload
+systemctl daemon-reload &>> $Log_file
 Validate $? "Reloading daemon"
 
-systemctl enable shipping 
+systemctl enable shipping &>> $Log_file
 Validate $? "Enabling shipping"
 
-systemctl start shipping
+systemctl start shipping &>> $Log_file
 Validate $? "Starting shiiping"
 
-dnf install mysql -y 
+dnf install mysql -y &>> $Log_file
 Validate $? "Installing mysql"
 
-mysql -h mysql.chainverse.online -uroot -pRoboShop@1 < /app/db/schema.sql
+mysql -h mysql.chainverse.online -uroot -pRoboShop@1 < /app/db/schema.sql &>> $Log_file
 Validate $? "pushing schema into mysql"
 
-mysql -h mysql.chainverse.online -uroot -pRoboShop@1 < /app/db/app-user.sql 
+mysql -h mysql.chainverse.online -uroot -pRoboShop@1 < /app/db/app-user.sql &>> $Log_file
 Validate $? "pushing user info into msql"
 
-mysql -h mysql.chainverse.online -uroot -pRoboShop@1 < /app/db/master-data.sql
+mysql -h mysql.chainverse.online -uroot -pRoboShop@1 < /app/db/master-data.sql &>> $Log_file
 Validate $? "pushing master-data"
 
-systemctl restart shipping 
+systemctl restart shipping &>> $Log_file 
 Validate $? "restarting shipping"

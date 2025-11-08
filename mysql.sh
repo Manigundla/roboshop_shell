@@ -9,7 +9,6 @@ N="\e[0m"
 
 Timestamp=$(date +%F-%H-%M-%S)
 Log_file="/tmp/$0-$Timestamp.log"
-exec >> $Log_file 2>&1
 
 Validate(){
     if [ $1 -ne 0 ]
@@ -29,14 +28,14 @@ else
     echo -e "$G you are a root user $N"
 fi
 
-dnf install mysql-server -y
+dnf install mysql-server -y &>> $Log_file
 Validate $? "Instaliing Msql"
 
-systemctl enable mysqld
+systemctl enable mysqld &>> $Log_file
 Validate $? "Enabling mysql"
 
-systemctl start mysqld  
+systemctl start mysqld &>> $Log_file
 Validate $? "Starting Mysql"
 
-mysql_secure_installation --set-root-pass RoboShop@1
+mysql_secure_installation --set-root-pass RoboShop@1 &>> $Log_file
 Validate $? "Installing and setting password"
