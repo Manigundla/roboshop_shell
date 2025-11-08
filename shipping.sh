@@ -52,7 +52,7 @@ Validate $? "downloading dependencies"
 mv target/shipping-1.0.jar shipping.jar &>> $Log_file
 Validate $? "Renaming jar file"
 
-cp /home/centos/roboshop_shell/shipping.repo /etc/systemd/system/shipping.service &>> $Log_file
+cp /home/ec2-user/roboshop_shell/shipping.repo /etc/systemd/system/shipping.service &>> $Log_file
 Validate $? "coping shipping conf"
 
 systemctl daemon-reload &>> $Log_file
